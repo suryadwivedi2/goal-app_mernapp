@@ -31,15 +31,15 @@ exports.registerUser = asynchandler(async (req, res, next) => {
     const user = await User.create({
         name: name,
         email: email,
-        password: hashedpassword,
-        token: generatetoken(user.id)
+        password: hashedpassword
     })
 
     if (user) {
         res.status(201).json({
             _id: user.id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            token: generatetoken(user.id)
         })
     } else {
         res.status(400)
@@ -70,5 +70,6 @@ exports.loginUser = asynchandler(async (req, res, next) => {
 
 
 exports.getMe = asynchandler(async (req, res, next) => {
-    res.status(200).json({ message: 'user data' });
+    const { name, email } = await User.findById(req.user.id)
+    res.status(200).json({ message: name + "  " + email });
 })
