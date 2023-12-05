@@ -3,13 +3,11 @@ import { faSignInAlt } from 'react-icons/fa'
 
 function Login() {
   const [formData, setformData] = useState({
-    name: '',
     email: '',
-    password: '',
-    password2: ''
+    password: ''
   })
 
-  const { name, email, password, password2 } = formData
+  const { email, password } = formData
 
   const onChange = (e) => {
     setformData((prevState) => ({
